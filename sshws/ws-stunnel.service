@@ -1,0 +1,12 @@
+[Unit]
+Description=SSH WebSocket Service
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python2 -O /usr/bin/ws 10015
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
