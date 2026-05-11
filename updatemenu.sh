@@ -43,13 +43,37 @@ install_deps() {
 
 prepare_repo() {
     info "Update Script dari GitHub..."
-    if [ ! -d "$BASE_DIR/.git" ]; then
-        rm -rf "$BASE_DIR"
-        git clone "$REPO_GIT" "$BASE_DIR" >/dev/null 2>&1 || { fail "Gagal clone repo"; exit 1; }
+
+    # FIX: Cek apakah remote origin sudah mengarah ke repo yang benar.
+    # Kalau repo lama (sudah dihapus) masih ada di /root/gipalok, git fetch
+    # akan gagal diam-diam (|| true) dan file lama tetap dipakai.
+    # Solusi: bandingkan URL remote dengan REPO_GIT — kalau beda, hapus dan clone ulang.
+    NEED_CLONE=0
+    if [ -d "$BASE_DIR/.git" ]; then
+        CURRENT_REMOTE=$(git -C "$BASE_DIR" remote get-url origin 2>/dev/null || echo "")
+        if [ "$CURRENT_REMOTE" != "$REPO_GIT" ]; then
+            warn "Remote origin berbeda ($CURRENT_REMOTE) — hapus folder lama dan clone ulang..."
+            NEED_CLONE=1
+        fi
+    else
+        NEED_CLONE=1
     fi
+
+    if [ "$NEED_CLONE" = "1" ]; then
+        rm -rf "$BASE_DIR"
+        info "Clone repo dari $REPO_GIT ..."
+        git clone "$REPO_GIT" "$BASE_DIR" 2>&1 | tail -3 || { fail "Gagal clone repo"; exit 1; }
+    fi
+
     cd "$BASE_DIR" || exit 1
-    git fetch origin >/dev/null 2>&1 || true
-    git reset --hard origin/main >/dev/null 2>&1 || true
+
+    # Pastikan fetch berhasil sebelum reset
+    if ! git fetch origin 2>/dev/null; then
+        fail "Gagal fetch dari GitHub. Cek koneksi internet VPS kamu."
+        exit 1
+    fi
+    git reset --hard origin/main
+    info "Repo berhasil diperbarui ke commit terbaru."
 }
 
 download_raw() {
