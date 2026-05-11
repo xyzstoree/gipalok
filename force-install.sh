@@ -43,138 +43,138 @@ info "Download & install semua script ke /usr/bin ..."
 echo ""
 
 # MENU UTAMA
-dl "Menu/menu.sh"          /usr/bin/menu
-dl "Menu/menu-ssh.sh"      /usr/bin/menu-ssh
-dl "Menu/menu-vmess.sh"    /usr/bin/menu-vmess
-dl "Menu/menu-vless.sh"    /usr/bin/menu-vless
-dl "Menu/menu-trojan.sh"   /usr/bin/menu-trojan
-dl "Menu/menu-trgo.sh"     /usr/bin/menu-trgo
-dl "Menu/menu-set.sh"      /usr/bin/menu-set
-dl "Menu/menu-bot.sh"      /usr/bin/menu-bot
-dl "Menu/menu-domain.sh"   /usr/bin/menu-domain
-dl "Menu/menu-webmin.sh"   /usr/bin/menu-webmin
-dl "Menu/menu-trial.sh"    /usr/bin/menu-trial
-dl "Menu/About.sh"         /usr/bin/about
-dl "Menu/auto-reboot.sh"   /usr/bin/auto-reboot
-dl "Menu/bw.sh"            /usr/bin/bw
-dl "Menu/restart.sh"       /usr/bin/restart
-dl "Menu/running.sh"       /usr/bin/running
-dl "Menu/clearcache.sh"    /usr/bin/clearcache
-dl "Menu/clearlog.sh"      /usr/bin/clearlog
-dl "Menu/mbot.sh"          /usr/bin/mbot
+dl "Menu/menu.sh"          /usr/local/bin/menu
+dl "Menu/menu-ssh.sh"      /usr/local/bin/menu-ssh
+dl "Menu/menu-vmess.sh"    /usr/local/bin/menu-vmess
+dl "Menu/menu-vless.sh"    /usr/local/bin/menu-vless
+dl "Menu/menu-trojan.sh"   /usr/local/bin/menu-trojan
+dl "Menu/menu-trgo.sh"     /usr/local/bin/menu-trgo
+dl "Menu/menu-set.sh"      /usr/local/bin/menu-set
+dl "Menu/menu-bot.sh"      /usr/local/bin/menu-bot
+dl "Menu/menu-domain.sh"   /usr/local/bin/menu-domain
+dl "Menu/menu-webmin.sh"   /usr/local/bin/menu-webmin
+dl "Menu/menu-trial.sh"    /usr/local/bin/menu-trial
+dl "Menu/About.sh"         /usr/local/bin/about
+dl "Menu/auto-reboot.sh"   /usr/local/bin/auto-reboot
+dl "Menu/bw.sh"            /usr/local/bin/bw
+dl "Menu/restart.sh"       /usr/local/bin/restart
+dl "Menu/running.sh"       /usr/local/bin/running
+dl "Menu/clearcache.sh"    /usr/local/bin/clearcache
+dl "Menu/clearlog.sh"      /usr/local/bin/clearlog
+dl "Menu/mbot.sh"          /usr/local/bin/mbot
 
 # PORT
-dl "Port/Port-change.sh"   /usr/bin/port-change
-dl "Port/port-ssl.sh"      /usr/bin/port-ssl
-dl "Port/port-ovpn.sh"     /usr/bin/port-ovpn
-dl "Port/port-tr.sh"       /usr/bin/port-tr
+dl "Port/Port-change.sh"   /usr/local/bin/port-change
+dl "Port/port-ssl.sh"      /usr/local/bin/port-ssl
+dl "Port/port-ovpn.sh"     /usr/local/bin/port-ovpn
+dl "Port/port-tr.sh"       /usr/local/bin/port-tr
 
 # SSH
-dl "ssh/usernew.sh"        /usr/bin/usernew
-dl "ssh/trial.sh"          /usr/bin/trial
-dl "ssh/renew.sh"          /usr/bin/renew
-dl "ssh/delete.sh"         /usr/bin/delete
-dl "ssh/hapus.sh"          /usr/bin/hapus
-dl "ssh/cek.sh"            /usr/bin/cek
-dl "ssh/member.sh"         /usr/bin/member
-dl "ssh/autokill.sh"       /usr/bin/autokill
-dl "ssh/ceklim.sh"         /usr/bin/ceklim
-dl "ssh/tendang.sh"        /usr/bin/tendang
-dl "ssh/add-host.sh"       /usr/bin/add-host
-dl "ssh/cf.sh"             /usr/bin/cf
-dl "ssh/genssl.sh"         /usr/bin/genssl
-dl "ssh/xp.sh"             /usr/bin/xp
-dl "ssh/user-lock.sh"      /usr/bin/user-lock
-dl "ssh/user-unlock.sh"    /usr/bin/user-unlock
-dl "ssh/bbr.sh"            /usr/bin/bbr
-dl "ssh/speedtest.sh"      /usr/bin/speedtest
-dl "cf2.sh"                /usr/bin/cf2
-dl "running.sh"            /usr/bin/running2
+dl "ssh/usernew.sh"        /usr/local/bin/usernew
+dl "ssh/trial.sh"          /usr/local/bin/trial
+dl "ssh/renew.sh"          /usr/local/bin/renew
+dl "ssh/delete.sh"         /usr/local/bin/delete
+dl "ssh/hapus.sh"          /usr/local/bin/hapus
+dl "ssh/cek.sh"            /usr/local/bin/cek
+dl "ssh/member.sh"         /usr/local/bin/member
+dl "ssh/autokill.sh"       /usr/local/bin/autokill
+dl "ssh/ceklim.sh"         /usr/local/bin/ceklim
+dl "ssh/tendang.sh"        /usr/local/bin/tendang
+dl "ssh/add-host.sh"       /usr/local/bin/add-host
+dl "ssh/cf.sh"             /usr/local/bin/cf
+dl "ssh/genssl.sh"         /usr/local/bin/genssl
+dl "ssh/xp.sh"             /usr/local/bin/xp
+dl "ssh/user-lock.sh"      /usr/local/bin/user-lock
+dl "ssh/user-unlock.sh"    /usr/local/bin/user-unlock
+dl "ssh/bbr.sh"            /usr/local/bin/bbr
+dl "ssh/speedtest.sh"      /usr/local/bin/speedtest
+dl "cf2.sh"                /usr/local/bin/cf2
+dl "running.sh"            /usr/local/bin/running2
 
 # XRAY VMESS
-dl "xray/add-ws.sh"        /usr/bin/add-ws
-dl "xray/trialvmess.sh"    /usr/bin/trial-ws
-dl "xray/renew-ws.sh"      /usr/bin/renew-ws
-dl "xray/del-ws.sh"        /usr/bin/del-ws
-dl "xray/cek-ws.sh"        /usr/bin/cek-ws
+dl "xray/add-ws.sh"        /usr/local/bin/add-ws
+dl "xray/trialvmess.sh"    /usr/local/bin/trial-ws
+dl "xray/renew-ws.sh"      /usr/local/bin/renew-ws
+dl "xray/del-ws.sh"        /usr/local/bin/del-ws
+dl "xray/cek-ws.sh"        /usr/local/bin/cek-ws
 
 # XRAY VLESS
-dl "xray/add-vless.sh"     /usr/bin/add-vless
-dl "xray/trialvless.sh"    /usr/bin/trial-vless
-dl "xray/renew-vless.sh"   /usr/bin/renew-vless
-dl "xray/del-vless.sh"     /usr/bin/del-vless
-dl "xray/cek-vless.sh"     /usr/bin/cek-vless
+dl "xray/add-vless.sh"     /usr/local/bin/add-vless
+dl "xray/trialvless.sh"    /usr/local/bin/trial-vless
+dl "xray/renew-vless.sh"   /usr/local/bin/renew-vless
+dl "xray/del-vless.sh"     /usr/local/bin/del-vless
+dl "xray/cek-vless.sh"     /usr/local/bin/cek-vless
 
 # XRAY TROJAN
-dl "xray/add-tr.sh"        /usr/bin/add-tr
-dl "xray/trialtrojan.sh"   /usr/bin/trial-tr
-dl "xray/renew-tr.sh"      /usr/bin/renew-tr
-dl "xray/del-tr.sh"        /usr/bin/del-tr
-dl "xray/cek-tr.sh"        /usr/bin/cek-tr
+dl "xray/add-tr.sh"        /usr/local/bin/add-tr
+dl "xray/trialtrojan.sh"   /usr/local/bin/trial-tr
+dl "xray/renew-tr.sh"      /usr/local/bin/renew-tr
+dl "xray/del-tr.sh"        /usr/local/bin/del-tr
+dl "xray/cek-tr.sh"        /usr/local/bin/cek-tr
 
 # TROJAN GO
-dl "xray/addtrgo.sh"       /usr/bin/addtrgo
-dl "xray/trialtrojango.sh" /usr/bin/trialtrojango
-dl "xray/renewtrgo.sh"     /usr/bin/renewtrgo
-dl "xray/deltrgo.sh"       /usr/bin/deltrgo
-dl "xray/cektrgo.sh"       /usr/bin/cektrgo
+dl "xray/addtrgo.sh"       /usr/local/bin/addtrgo
+dl "xray/trialtrojango.sh" /usr/local/bin/trialtrojango
+dl "xray/renewtrgo.sh"     /usr/local/bin/renewtrgo
+dl "xray/deltrgo.sh"       /usr/local/bin/deltrgo
+dl "xray/cektrgo.sh"       /usr/local/bin/cektrgo
 
 # BACKUP
-dl "Backup/menu-backup.sh"  /usr/bin/menu-backup
-dl "Backup/set-telegram.sh" /usr/bin/set-telegram
-dl "Backup/backup.sh"       /usr/bin/backup
-dl "Backup/restore.sh"      /usr/bin/restore
-dl "Backup/autobackup.sh"   /usr/bin/autobackup
-dl "Backup/set-br.sh"       /usr/bin/set-br
-dl "Backup/strt.sh"         /usr/bin/strt
-dl "Backup/limitspeed.sh"   /usr/bin/limitspeed
+dl "Backup/menu-backup.sh"  /usr/local/bin/menu-backup
+dl "Backup/set-telegram.sh" /usr/local/bin/set-telegram
+dl "Backup/backup.sh"       /usr/local/bin/backup
+dl "Backup/restore.sh"      /usr/local/bin/restore
+dl "Backup/autobackup.sh"   /usr/local/bin/autobackup
+dl "Backup/set-br.sh"       /usr/local/bin/set-br
+dl "Backup/strt.sh"         /usr/local/bin/strt
+dl "Backup/limitspeed.sh"   /usr/local/bin/limitspeed
 
 # BOT API
-dl "api/install-api.sh"     /usr/bin/install-api
+dl "api/install-api.sh"     /usr/local/bin/install-api
 
 # QUEUE / LIMIT IP
-dl "Queue/Queue-ip-ssh.sh"    /usr/bin/limitssh
-dl "Queue/Queue-ip-vmess.sh"  /usr/bin/limitvmess
-dl "Queue/Queue-ip-vless.sh"  /usr/bin/limitvless
-dl "Queue/Queue-ip-trojan.sh" /usr/bin/limittrojan
+dl "Queue/Queue-ip-ssh.sh"    /usr/local/bin/limitssh
+dl "Queue/Queue-ip-vmess.sh"  /usr/local/bin/limitvmess
+dl "Queue/Queue-ip-vless.sh"  /usr/local/bin/limitvless
+dl "Queue/Queue-ip-trojan.sh" /usr/local/bin/limittrojan
 
 # QUEUE / QUOTA
-dl "Queue/quota-vmess-ws.sh"        /usr/bin/quota-vmess-ws
-dl "Queue/quota-vless-ws.sh"        /usr/bin/quota-vless-ws
-dl "Queue/quota-trojan-ws.sh"       /usr/bin/quota-trojan-ws
-dl "Queue/quota-vmess-grpc.sh"      /usr/bin/quota-vmess-grpc
-dl "Queue/quota-trojan-grpc.sh"     /usr/bin/quota-trojan-grpc
-dl "Queue/quota-vmess-ws-orbit.sh"  /usr/bin/quota-vmess-ws-orbit
-dl "Queue/quota-vmess-ws-orbit1.sh" /usr/bin/quota-vmess-ws-orbit1
-dl "Queue/Queue-quota-vmess.sh"     /usr/bin/Queue-quota-vmess
-dl "Queue/Queue-quota-vless.sh"     /usr/bin/Queue-quota-vless
-dl "Queue/quota.sh"                 /usr/bin/quota
-dl "Queue/Queue.sh"                 /usr/bin/Queue
-dl "Queue/loop.sh"                  /usr/bin/loop
-dl "Queue/matikan.sh"               /usr/bin/matikan
-dl "Queue/cek-ssh.sh"               /usr/bin/cek-ssh
-dl "Queue/mesinssh.sh"              /usr/bin/mesinssh
-dl "Queue/nskk.sh"                  /usr/bin/nskk
+dl "Queue/quota-vmess-ws.sh"        /usr/local/bin/quota-vmess-ws
+dl "Queue/quota-vless-ws.sh"        /usr/local/bin/quota-vless-ws
+dl "Queue/quota-trojan-ws.sh"       /usr/local/bin/quota-trojan-ws
+dl "Queue/quota-vmess-grpc.sh"      /usr/local/bin/quota-vmess-grpc
+dl "Queue/quota-trojan-grpc.sh"     /usr/local/bin/quota-trojan-grpc
+dl "Queue/quota-vmess-ws-orbit.sh"  /usr/local/bin/quota-vmess-ws-orbit
+dl "Queue/quota-vmess-ws-orbit1.sh" /usr/local/bin/quota-vmess-ws-orbit1
+dl "Queue/Queue-quota-vmess.sh"     /usr/local/bin/Queue-quota-vmess
+dl "Queue/Queue-quota-vless.sh"     /usr/local/bin/Queue-quota-vless
+dl "Queue/quota.sh"                 /usr/local/bin/quota
+dl "Queue/Queue.sh"                 /usr/local/bin/Queue
+dl "Queue/loop.sh"                  /usr/local/bin/loop
+dl "Queue/matikan.sh"               /usr/local/bin/matikan
+dl "Queue/cek-ssh.sh"               /usr/local/bin/cek-ssh
+dl "Queue/mesinssh.sh"              /usr/local/bin/mesinssh
+dl "Queue/nskk.sh"                  /usr/local/bin/nskk
 
 # UPDATE SELF
-dl "updatemenu.sh"          /usr/bin/updatemenu
-dl "force-install.sh"       /usr/bin/force-install
+dl "updatemenu.sh"          /usr/local/bin/updatemenu
+dl "force-install.sh"       /usr/local/bin/force-install
 
 # Buat alias dash agar command lama tetap jalan
 for pair in "limitssh:limit-ssh" "limitvmess:limit-vmess" "limitvless:limit-vless" "limittrojan:limit-trojan"; do
     src="${pair%%:*}"; dst="${pair##*:}"
-    cp /usr/bin/$src /usr/bin/$dst 2>/dev/null && chmod +x /usr/bin/$dst || true
+    cp /usr/local/bin/$src /usr/local/bin/$dst 2>/dev/null && chmod +x /usr/local/bin/$dst || true
 done
 
 # Sinkron juga ke /root/gipalok/ supaya path lama tidak ketinggalan
 if [ -d "/root/gipalok" ]; then
     info "Sinkron juga ke /root/gipalok/ ..."
-    for f in /usr/bin/menu /usr/bin/running /usr/bin/renew /usr/bin/add-ws \
-              /usr/bin/add-vless /usr/bin/add-tr /usr/bin/addtrgo \
-              /usr/bin/quota-vmess-ws /usr/bin/quota-vless-ws \
-              /usr/bin/quota-trojan-ws /usr/bin/quota-vmess-grpc \
-              /usr/bin/limitssh /usr/bin/limitvmess /usr/bin/limitvless /usr/bin/limittrojan \
-              /usr/bin/Queue-quota-vmess /usr/bin/Queue-quota-vless; do
+    for f in /usr/local/bin/menu /usr/local/bin/running /usr/local/bin/renew /usr/local/bin/add-ws \
+              /usr/local/bin/add-vless /usr/local/bin/add-tr /usr/local/bin/addtrgo \
+              /usr/local/bin/quota-vmess-ws /usr/local/bin/quota-vless-ws \
+              /usr/local/bin/quota-trojan-ws /usr/local/bin/quota-vmess-grpc \
+              /usr/local/bin/limitssh /usr/local/bin/limitvmess /usr/local/bin/limitvless /usr/local/bin/limittrojan \
+              /usr/local/bin/Queue-quota-vmess /usr/local/bin/Queue-quota-vless; do
         [ -f "$f" ] && cp "$f" /root/gipalok/ 2>/dev/null || true
     done
 fi
