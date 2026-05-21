@@ -1,10 +1,14 @@
 #!/bin/bash
-# Trial SSH Account with duration input: 3h / 3d
+# ============================================================================
+# v7fix — Trial SSH Account with duration input: 3h / 3d
+# ============================================================================
+# shellcheck source=/dev/null
+[ -f /etc/v7fix/lib/common.sh ] && source /etc/v7fix/lib/common.sh
 
 clear
 
-domain=$(cat /etc/xray/domain 2>/dev/null || cat /root/domain 2>/dev/null || echo "-")
-IP=$(curl -sS --max-time 3 ipv4.icanhazip.com 2>/dev/null || curl -sS --max-time 3 ifconfig.me 2>/dev/null || echo "-")
+domain=$(v7_get_domain 2>/dev/null || cat /etc/xray/domain 2>/dev/null || echo "-")
+IP=$(v7_get_ip 2>/dev/null || echo "-")
 
 mkdir -p /etc/Anggun/Queue/ssh/ip
 touch /root/log-install.txt

@@ -6,7 +6,7 @@
 
 set -e
 
-REPO_DIR="/root/gipalok"
+REPO_DIR="/root/v7fix"
 API_SRC="$REPO_DIR/api/botvpn-api.py"
 API_DEST="/usr/local/bin/botvpn-api.py"
 SERVICE="/etc/systemd/system/botvpn-api.service"

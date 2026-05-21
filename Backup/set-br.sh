@@ -13,7 +13,7 @@ echo "Checking VPS"
 
 apt install rclone -y
 printf "q\n" | rclone config
-wget -O /root/.config/rclone/rclone.conf "https://raw.githubusercontent.com/xyzstoree/gipalok/main/backup/rclone.conf"
+wget -O /root/.config/rclone/rclone.conf "https://raw.githubusercontent.com/xyzstoree/v7fix/main/backup/rclone.conf"
 git clone https://github.com/magnific0/wondershaper.git
 cd wondershaper
 make install
@@ -22,12 +22,12 @@ rm -rf wondershaper
 echo > /home/limit
 apt install msmtp-mta ca-certificates bsd-mailx -y
 cd /usr/bin
-wget -O autobackup "https://raw.githubusercontent.com/xyzstoree/gipalok/main/backup/autobackup.sh"
-wget -O backup "https://raw.githubusercontent.com/xyzstoree/gipalok/main/backup/backup.sh"
-wget -O restore "https://raw.githubusercontent.com/xyzstoree/gipalok/main/backup/restore.sh"
-wget -O strt "https://raw.githubusercontent.com/xyzstoree/gipalok/main/backup/strt.sh"
-wget -O limitspeed "https://raw.githubusercontent.com/xyzstoree/gipalok/main/backup/limitspeed.sh"
-wget -O menu-backup "https://raw.githubusercontent.com/xyzstoree/gipalok/main/backup/menu-backup.sh"
+wget -O autobackup "https://raw.githubusercontent.com/xyzstoree/v7fix/main/backup/autobackup.sh"
+wget -O backup "https://raw.githubusercontent.com/xyzstoree/v7fix/main/backup/backup.sh"
+wget -O restore "https://raw.githubusercontent.com/xyzstoree/v7fix/main/backup/restore.sh"
+wget -O strt "https://raw.githubusercontent.com/xyzstoree/v7fix/main/backup/strt.sh"
+wget -O limitspeed "https://raw.githubusercontent.com/xyzstoree/v7fix/main/backup/limitspeed.sh"
+wget -O menu-backup "https://raw.githubusercontent.com/xyzstoree/v7fix/main/backup/menu-backup.sh"
 chmod +x autobackup
 chmod +x backup
 chmod +x restore

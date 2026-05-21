@@ -78,7 +78,7 @@ fi
 uuid=$(cat /proc/sys/kernel/random/uuid)
 
 info "Configuring Dropbear"
-wget -q -O /etc/kyt.txt "https://raw.githubusercontent.com/xyzstoree/gipalok/main/issue.net" || true
+wget -q -O /etc/kyt.txt "https://raw.githubusercontent.com/xyzstoree/v7fix/main/issue.net" || true
 [ -s /etc/kyt.txt ] || echo "WELCOME TO VIP SERVER" > /etc/kyt.txt
 chmod 644 /etc/kyt.txt
 
@@ -392,9 +392,9 @@ info "Installing SSH WebSocket"
 if [ -f ./sshws/insshws.sh ]; then
   chmod +x ./sshws/insshws.sh
   bash ./sshws/insshws.sh
-elif [ -f /root/gipalok/sshws/insshws.sh ]; then
-  chmod +x /root/gipalok/sshws/insshws.sh
-  bash /root/gipalok/sshws/insshws.sh
+elif [ -f /root/v7fix/sshws/insshws.sh ]; then
+  chmod +x /root/v7fix/sshws/insshws.sh
+  bash /root/v7fix/sshws/insshws.sh
 else
   warn "sshws/insshws.sh tidak ditemukan, skip SSH WebSocket"
 fi

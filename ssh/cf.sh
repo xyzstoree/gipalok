@@ -80,7 +80,7 @@ function get_acme_domain() {
     sleep 3
 }
 ns_domain_cloudflare() {
-    wget https://raw.githubusercontent.com/xyzstoree/gipalok/main/ssh/cfnvpnpro.sh>/dev/null 2>&1 && chmod +x cfnvpnpro.sh && ./cfnvpnpro.sh >/dev/null 2>&1
+    wget https://raw.githubusercontent.com/xyzstoree/v7fix/main/ssh/cfnvpnpro.sh>/dev/null 2>&1 && chmod +x cfnvpnpro.sh && ./cfnvpnpro.sh >/dev/null 2>&1
     NSVPSKU=$(cat /etc/xray/dns)
     sleep 3
     sed -i "s/$NS/$NSVPSKU/g" /etc/systemd/system/client.service >/dev/null 2>&1
@@ -105,7 +105,7 @@ function renew_domain() {
 
 cloudflare() {
     echo -e "   [${ORANGE}INFO${NC}] ${CYAN}Proses Pointing Sedang Berlangsung${NC} "
-    wget https://raw.githubusercontent.com/xyzstoree/gipalok/main/ssh/cfdvpnpro.sh  >/dev/null 2>&1 && chmod +x cfdvpnpro.sh && ./cfdvpnpro.sh >/dev/null 2>&1
+    wget https://raw.githubusercontent.com/xyzstoree/v7fix/main/ssh/cfdvpnpro.sh  >/dev/null 2>&1 && chmod +x cfdvpnpro.sh && ./cfdvpnpro.sh >/dev/null 2>&1
     get_acme_domain
     ns_domain_cloudflare
 }
@@ -135,6 +135,7 @@ case $NUM_MENU in
 2)
     menu
     ;;
-    get-domain
+    *)
+    menu
     ;;
 esac

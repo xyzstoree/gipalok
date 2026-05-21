@@ -28,7 +28,7 @@ if [[ $EUID -ne 0 ]]; then
     exit 1
 fi
 
-REPO=${REPO:-https://raw.githubusercontent.com/xyzstoree/gipalok/main}
+REPO=${REPO:-https://raw.githubusercontent.com/xyzstoree/v7fix/main}
 
 clear
 info "Installing SSH, Dropbear, Stunnel, Squid"
