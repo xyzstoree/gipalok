@@ -11,7 +11,7 @@ CYAN='\033[0;36m'
 API_SERVICE="botvpn-api"
 API_TOKEN_FILE="/etc/Anggun/api-token"
 API_PORT="5889"
-REPO_DIR="/root/gipalok"
+REPO_DIR="/root/v7fix"
 
 install_api_bot() {
     clear

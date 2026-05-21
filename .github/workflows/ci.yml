@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  shellcheck:
+    name: ShellCheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run shellcheck
+        # We use --severity=warning so style nits don't break CI.
+        # The autoscript inherited many minor issues from upstream forks
+        # that are tracked in the issue tracker, not blockers.
+        uses: ludeeus/action-shellcheck@master
+        with:
+          severity: warning
+          ignore_paths: .github
+
+  pyflakes:
+    name: Python lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Compile-check Python
+        run: |
+          set -eux
+          find . -name "*.py" -not -path "./.git/*" -print0 \
+            | xargs -0 -I{} python3 -m py_compile "{}"
+
+  manifest-validate:
+    name: Validate install manifest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Each manifest source must exist
+        run: |
+          set -e
+          fail=0
+          while read -r line; do
+            line="${line%%#*}"
+            [ -z "${line// }" ] && continue
+            src=$(echo "$line" | awk '{print $1}')
+            if [ -n "$src" ] && [ ! -f "$src" ]; then
+              echo "MISSING: $src"
+              fail=1
+            fi
+          done < install/manifest.txt
+          [ "$fail" = 0 ] || { echo "Manifest references missing files"; exit 1; }

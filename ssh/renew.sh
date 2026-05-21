@@ -1,8 +1,14 @@
 #!/bin/bash
-# FIX 1: Removed dead code — curl google date (slow, fragile, $biji variable never used)
-# FIX 2: Date format changed from +%Y/%m/%d → +%Y-%m-%d (usermod -e requires YYYY-MM-DD)
-# FIX 3: Added validation for empty/non-numeric Days input
-# FIX 4: egrep "^$User" → egrep "^${User}:" to prevent partial username match
+# ============================================================================
+# v7fix — Renew SSH Account
+# Carries forward bug fixes from gipalok:
+#   - No more curl google for date (dead code)
+#   - YYYY-MM-DD date format for usermod -e
+#   - Validates Days as positive integer
+#   - egrep "^${User}:" prevents partial-name match (e.g. "john" vs "johnwick")
+# ============================================================================
+# shellcheck source=/dev/null
+[ -f /etc/v7fix/lib/common.sh ] && source /etc/v7fix/lib/common.sh
 clear
 echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 echo -e "\E[0;41;36m               RENEW  USER                \E[0m"

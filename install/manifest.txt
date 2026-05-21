@@ -1,0 +1,121 @@
+# v7fix command manifest — single source of truth
+# Format: <src_relative_to_repo>  <dst_absolute_path>  [alias_dst (optional)]
+# Used by: updatemenu.sh, force-install.sh
+# Lines starting with # or empty are ignored.
+
+# ===== MENU UTAMA =====
+Menu/menu.sh            /usr/local/bin/menu
+Menu/menu-ssh.sh        /usr/local/bin/menu-ssh
+Menu/menu-vmess.sh      /usr/local/bin/menu-vmess
+Menu/menu-vless.sh      /usr/local/bin/menu-vless
+Menu/menu-trojan.sh     /usr/local/bin/menu-trojan
+Menu/menu-trgo.sh       /usr/local/bin/menu-trgo
+Menu/menu-set.sh        /usr/local/bin/menu-set
+Menu/menu-bot.sh        /usr/local/bin/menu-bot
+Menu/menu-domain.sh     /usr/local/bin/menu-domain
+Menu/menu-webmin.sh     /usr/local/bin/menu-webmin
+Menu/menu-trial.sh      /usr/local/bin/menu-trial
+Menu/About.sh           /usr/local/bin/about
+Menu/auto-reboot.sh     /usr/local/bin/auto-reboot
+Menu/bw.sh              /usr/local/bin/bw
+Menu/restart.sh         /usr/local/bin/restart
+Menu/running.sh         /usr/local/bin/running
+Menu/clearcache.sh      /usr/local/bin/clearcache
+Menu/clearlog.sh        /usr/local/bin/clearlog
+Menu/mbot.sh            /usr/local/bin/mbot
+
+# ===== PORT =====
+Port/Port-change.sh     /usr/local/bin/port-change
+Port/port-ssl.sh        /usr/local/bin/port-ssl
+Port/port-ovpn.sh       /usr/local/bin/port-ovpn
+Port/port-tr.sh         /usr/local/bin/port-tr
+
+# ===== SSH =====
+ssh/usernew.sh          /usr/local/bin/usernew
+ssh/trial.sh            /usr/local/bin/trial
+ssh/renew.sh            /usr/local/bin/renew
+ssh/delete.sh           /usr/local/bin/delete
+ssh/hapus.sh            /usr/local/bin/hapus
+ssh/cek.sh              /usr/local/bin/cek
+ssh/member.sh           /usr/local/bin/member
+ssh/autokill.sh         /usr/local/bin/autokill
+ssh/ceklim.sh           /usr/local/bin/ceklim
+ssh/tendang.sh          /usr/local/bin/tendang
+ssh/add-host.sh         /usr/local/bin/add-host
+ssh/cf.sh               /usr/local/bin/cf
+ssh/genssl.sh           /usr/local/bin/genssl
+ssh/xp.sh               /usr/local/bin/xp
+ssh/user-lock.sh        /usr/local/bin/user-lock
+ssh/user-unlock.sh      /usr/local/bin/user-unlock
+ssh/bbr.sh              /usr/local/bin/bbr
+ssh/speedtest.sh        /usr/local/bin/speedtest
+cf2.sh                  /usr/local/bin/cf2
+
+# ===== XRAY VMESS =====
+xray/add-ws.sh          /usr/local/bin/add-ws
+xray/trialvmess.sh      /usr/local/bin/trial-ws
+xray/renew-ws.sh        /usr/local/bin/renew-ws
+xray/del-ws.sh          /usr/local/bin/del-ws
+xray/cek-ws.sh          /usr/local/bin/cek-ws
+
+# ===== XRAY VLESS =====
+xray/add-vless.sh       /usr/local/bin/add-vless
+xray/trialvless.sh      /usr/local/bin/trial-vless
+xray/renew-vless.sh     /usr/local/bin/renew-vless
+xray/del-vless.sh       /usr/local/bin/del-vless
+xray/cek-vless.sh       /usr/local/bin/cek-vless
+
+# ===== XRAY TROJAN =====
+xray/add-tr.sh          /usr/local/bin/add-tr
+xray/trialtrojan.sh     /usr/local/bin/trial-tr
+xray/renew-tr.sh        /usr/local/bin/renew-tr
+xray/del-tr.sh          /usr/local/bin/del-tr
+xray/cek-tr.sh          /usr/local/bin/cek-tr
+
+# ===== TROJAN GO =====
+xray/addtrgo.sh         /usr/local/bin/addtrgo
+xray/trialtrojango.sh   /usr/local/bin/trialtrojango
+xray/renewtrgo.sh       /usr/local/bin/renewtrgo
+xray/deltrgo.sh         /usr/local/bin/deltrgo
+xray/cektrgo.sh         /usr/local/bin/cektrgo
+
+# ===== BACKUP =====
+Backup/menu-backup.sh   /usr/local/bin/menu-backup
+Backup/set-telegram.sh  /usr/local/bin/set-telegram
+Backup/backup.sh        /usr/local/bin/backup
+Backup/restore.sh       /usr/local/bin/restore
+Backup/autobackup.sh    /usr/local/bin/autobackup
+Backup/set-br.sh        /usr/local/bin/set-br
+Backup/strt.sh          /usr/local/bin/strt
+Backup/limitspeed.sh    /usr/local/bin/limitspeed
+
+# ===== BOT API =====
+api/install-api.sh      /usr/local/bin/install-api
+
+# ===== QUEUE / LIMIT IP =====
+Queue/Queue-ip-ssh.sh        /usr/local/bin/limitssh         /usr/local/bin/limit-ssh
+Queue/Queue-ip-vmess.sh      /usr/local/bin/limitvmess       /usr/local/bin/limit-vmess
+Queue/Queue-ip-vless.sh      /usr/local/bin/limitvless       /usr/local/bin/limit-vless
+Queue/Queue-ip-trojan.sh     /usr/local/bin/limittrojan      /usr/local/bin/limit-trojan
+
+# ===== QUEUE / QUOTA =====
+Queue/quota-vmess-ws.sh         /usr/local/bin/quota-vmess-ws
+Queue/quota-vless-ws.sh         /usr/local/bin/quota-vless-ws
+Queue/quota-trojan-ws.sh        /usr/local/bin/quota-trojan-ws
+Queue/quota-vmess-grpc.sh       /usr/local/bin/quota-vmess-grpc
+Queue/quota-trojan-grpc.sh      /usr/local/bin/quota-trojan-grpc
+Queue/quota-vmess-ws-orbit.sh   /usr/local/bin/quota-vmess-ws-orbit
+Queue/quota-vmess-ws-orbit1.sh  /usr/local/bin/quota-vmess-ws-orbit1
+Queue/Queue-quota-vmess.sh      /usr/local/bin/Queue-quota-vmess
+Queue/Queue-quota-vless.sh      /usr/local/bin/Queue-quota-vless
+Queue/quota.sh                  /usr/local/bin/quota
+Queue/Queue.sh                  /usr/local/bin/Queue
+Queue/loop.sh                   /usr/local/bin/loop
+Queue/matikan.sh                /usr/local/bin/matikan
+Queue/cek-ssh.sh                /usr/local/bin/cek-ssh
+Queue/mesinssh.sh               /usr/local/bin/mesinssh
+Queue/nskk.sh                   /usr/local/bin/nskk
+
+# ===== UPDATE SELF =====
+updatemenu.sh           /usr/local/bin/updatemenu
+force-install.sh        /usr/local/bin/force-install

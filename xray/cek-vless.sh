@@ -1,51 +1,61 @@
 #!/bin/bash
-RED='\033[0;31m'
-NC='\033[0m'
-GREEN='\033[0;32m'
-ORANGE='\033[0;33m'
-BLUE='\033[0;34m'
-PURPLE='\033[0;35m'
-CYAN='\033[0;36m'
-LIGHT='\033[0;37m'
+# ============================================================================
+# v7fix — list active VLess users
+# ============================================================================
+
+# shellcheck source=/dev/null
+[ -f /etc/v7fix/lib/common.sh ] && source /etc/v7fix/lib/common.sh
+
+CONFIG="/etc/xray/config.json"
+ACCESS_LOG="/var/log/xray/access.log"
+EXPIRY_DIR="/etc/Anggun/Expiry/vless"
 
 clear
-echo -n > /tmp/other.txt
-data=( $(cat /etc/xray/config.json | grep '^#& ' | cut -d ' ' -f 2) );
-echo "----------------------------------------";
-echo "---------=[ Vless User Login ]=---------";
-echo "----------------------------------------";
-for akun in "${data[@]}"
-do
-if [[ -z "$akun" ]]; then
-akun="tidakada"
+echo -e "${CYAN:-}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC:-}"
+echo -e "         VLESS USER LOGIN"
+echo -e "${CYAN:-}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC:-}"
+
+if [ ! -f "$CONFIG" ]; then
+    fail "Xray config tidak ditemukan."
+    v7_pause_back menu-vless
+    exit 1
 fi
-echo -n > /tmp/ipvless.txt
-data2=( $(netstat -anp | grep ESTABLISHED | grep tcp6 | grep xray | awk '{print $5}' | cut -d: -f1 | sort | uniq) );
-for ip in "${data2[@]}"
-do
-jum=$(cat /var/log/xray/access.log | grep -w $akun | awk '{print $3}' | cut -d: -f1 | grep -w $ip | sort | uniq)
-if [[ "$jum" = "$ip" ]]; then
-echo "$jum" >> /tmp/ipvless.txt
-else
-echo "$ip" >> /tmp/other.txt
+
+mapfile -t USERS < <(
+    jq -r '
+      .inbounds[]?
+      | select(.tag=="vless-ws" or .tag=="vless-grpc")
+      | .settings.clients[]?.email // empty
+    ' "$CONFIG" 2>/dev/null | sort -u
+)
+
+if [ "${#USERS[@]}" -eq 0 ]; then
+    echo "Belum ada user VLess."
+    v7_pause_back menu-vless
+    exit 0
 fi
-jum2=$(cat /tmp/ipvless.txt)
-sed -i "/$jum2/d" /tmp/other.txt > /dev/null 2>&1
+
+printf "%-22s %-12s %-30s\n" "USER" "EXP" "ONLINE IPs (last 500 log lines)"
+echo -e "${CYAN:-}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC:-}"
+
+for user in "${USERS[@]}"; do
+    exp="-"
+    [ -f "$EXPIRY_DIR/$user" ] && exp="$(cat "$EXPIRY_DIR/$user" 2>/dev/null)"
+
+    ips="-"
+    if [ -f "$ACCESS_LOG" ]; then
+        ips=$(tail -n 500 "$ACCESS_LOG" 2>/dev/null \
+              | grep -E "email:[[:space:]]*${user}[[:space:]]*\$" \
+              | awk '{for(i=1;i<=NF;i++) if($i~/^tcp:|^[0-9]+\./) {print $i; break}}' \
+              | sed 's/tcp://; s/:[0-9]*$//' \
+              | sort -u | head -5 | tr '\n' ',' | sed 's/,$//')
+        [ -z "$ips" ] && ips="-"
+    fi
+
+    printf "%-22s %-12s %-30s\n" "$user" "$exp" "$ips"
 done
-jum=$(cat /tmp/ipvless.txt)
-if [[ -z "$jum" ]]; then
-echo > /dev/null
-else
-jum2=$(cat /tmp/ipvless.txt | nl)
-echo "user : $akun";
-echo "$jum2";
-echo "----------------------------------------"
-fi
-rm -rf /tmp/ipvless.txt
-done
-oth=$(cat /tmp/other.txt | sort | uniq | nl)
-echo "other";
-echo "$oth";
-echo "----------------------------------------"
-echo "Script ANGGUN PREMIUM"
-rm -rf /tmp/other.txt
+
+echo -e "${CYAN:-}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC:-}"
+echo "Total: ${#USERS[@]} user"
+
+v7_pause_back menu-vless

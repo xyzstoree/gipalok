@@ -1,5 +1,7 @@
 #!/bin/bash
 set -e
+# shellcheck source=/dev/null
+[ -f /etc/v7fix/lib/common.sh ] && source /etc/v7fix/lib/common.sh
 
 mkdir -p /var/lib/Anggun /etc/Anggun/Queue/vmess/quota /etc/Anggun/Queue/vmess/ip
 touch /root/log-install.txt

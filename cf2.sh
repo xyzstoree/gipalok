@@ -83,7 +83,7 @@ function get_acme_domain() {
 
 ns_domain_cloudflare() {
     # FIX: wget now uses -q -O flag to save file properly
-    wget -q https://raw.githubusercontent.com/xyzstoree/gipalok/main/ssh/cfnvpnpro.sh -O cfnvpnpro.sh \
+    wget -q https://raw.githubusercontent.com/xyzstoree/v7fix/main/ssh/cfnvpnpro.sh -O cfnvpnpro.sh \
         && chmod +x cfnvpnpro.sh && ./cfnvpnpro.sh >/dev/null 2>&1
     NSVPSKU=$(cat /etc/xray/dns 2>/dev/null || echo "$NS")
     sleep 3
@@ -102,7 +102,7 @@ ns_domain_cloudflare() {
 cloudflare() {
     echo -e "   [${ORANGE}INFO${NC}] ${CYAN}Proses Pointing Sedang Berlangsung${NC} "
     # FIX: wget uses -q -O flag to save file properly
-    wget -q https://raw.githubusercontent.com/xyzstoree/gipalok/main/ssh/cfdvpnpro.sh -O cfdvpnpro.sh \
+    wget -q https://raw.githubusercontent.com/xyzstoree/v7fix/main/ssh/cfdvpnpro.sh -O cfdvpnpro.sh \
         && chmod +x cfdvpnpro.sh && ./cfdvpnpro.sh >/dev/null 2>&1
     get_acme_domain
     ns_domain_cloudflare

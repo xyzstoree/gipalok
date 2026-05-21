@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-REPO=${REPO:-https://raw.githubusercontent.com/xyzstoree/gipalok/main/}
+REPO=${REPO:-https://raw.githubusercontent.com/xyzstoree/v7fix/main/}
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 

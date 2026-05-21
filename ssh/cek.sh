@@ -1,87 +1,96 @@
 #!/bin/bash
-dateFromServer=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
-biji=$(date +"%Y-%m-%d" -d "$dateFromServer")
+# ============================================================================
+# v7fix — check SSH/OpenVPN logged-in users
+# Fixes vs gipalok:
+#   - Removed dead code (curl google for date)
+#   - Use mapfile/array instead of subshell + ps grep gymnastics
+#   - Tolerate missing log files (auth.log vs secure)
+#   - Remove stale tmp files even on error
+# ============================================================================
 
-red='\e[1;31m'
-green='\e[0;32m'
+# shellcheck source=/dev/null
+[ -f /etc/v7fix/lib/common.sh ] && source /etc/v7fix/lib/common.sh
 
 clear
-echo " "
-echo " "
+echo
 
-if [ -e "/var/log/auth.log" ]; then
-        LOG="/var/log/auth.log";
+# Resolve auth log path
+LOG=""
+[ -e /var/log/auth.log ] && LOG="/var/log/auth.log"
+[ -e /var/log/secure ]   && LOG="/var/log/secure"
+
+cleanup() { rm -f /tmp/login-db.txt /tmp/login-db-pid.txt /tmp/vpn-login-tcp.txt /tmp/vpn-login-udp.txt; }
+trap cleanup EXIT
+
+# ----------- Dropbear -----------
+echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+echo -e "\E[0;41;36m         Dropbear User Login        \E[0m"
+echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+echo "ID  |  Username  |  IP Address"
+echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+if [ -n "$LOG" ]; then
+    grep -i dropbear "$LOG" 2>/dev/null | grep -i "Password auth succeeded" > /tmp/login-db.txt
+    while read -r PID; do
+        [ -z "$PID" ] && continue
+        line=$(grep "dropbear\[$PID\]" /tmp/login-db.txt | tail -n1)
+        [ -z "$line" ] && continue
+        USER=$(echo "$line" | awk '{print $10}')
+        IP=$(echo   "$line" | awk '{print $12}')
+        echo "$PID - $USER - $IP"
+    done < <(pgrep -x dropbear 2>/dev/null)
+else
+    echo "  (auth.log/secure tidak ditemukan)"
 fi
-if [ -e "/var/log/secure" ]; then
-        LOG="/var/log/secure";
+echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+
+echo
+# ----------- OpenSSH -----------
+echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+echo -e "\E[0;41;36m          OpenSSH User Login        \E[0m"
+echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+echo "ID  |  Username  |  IP Address"
+echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+if [ -n "$LOG" ]; then
+    grep -i sshd "$LOG" 2>/dev/null | grep -i "Accepted password for" > /tmp/login-db.txt
+    while read -r PID; do
+        [ -z "$PID" ] && continue
+        line=$(grep "sshd\[$PID\]" /tmp/login-db.txt | tail -n1)
+        [ -z "$line" ] && continue
+        USER=$(echo "$line" | awk '{print $9}')
+        IP=$(echo   "$line" | awk '{print $11}')
+        echo "$PID - $USER - $IP"
+    done < <(ps aux 2>/dev/null | awk '/sshd:.*\[priv\]/ {print $2}')
+else
+    echo "  (auth.log/secure tidak ditemukan)"
+fi
+echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+
+# ----------- OpenVPN TCP -----------
+if [ -f /etc/openvpn/server/openvpn-tcp.log ]; then
+    echo
+    echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+    echo -e "\E[0;41;36m          OpenVPN TCP User Login         \E[0m"
+    echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+    echo "Username  |  IP Address  |  Connected Since"
+    echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+    grep -w "^CLIENT_LIST" /etc/openvpn/server/openvpn-tcp.log \
+        | cut -d',' -f2,3,8 | sed -e 's/,/      /g'
+    echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 fi
 
-data=( $(ps aux | grep -i dropbear | awk '{print $2}') );
-echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-echo -e "\E[0;41;36m         Dropbear User Login       \E[0m"
-echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-echo "ID  |  Username  |  IP Address";
-echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-cat $LOG | grep -i dropbear | grep -i "Password auth succeeded" > /tmp/login-db.txt;
-for PID in "${data[@]}"
-do
-        cat /tmp/login-db.txt | grep "dropbear\[$PID\]" > /tmp/login-db-pid.txt;
-        NUM=$(cat /tmp/login-db-pid.txt | wc -l);
-        USER=$(cat /tmp/login-db-pid.txt | awk '{print $10}');
-        IP=$(cat /tmp/login-db-pid.txt | awk '{print $12}');
-        if [ $NUM -eq 1 ]; then
-                echo "$PID - $USER - $IP";
-        fi
-echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-done
-echo " "
-echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-echo -e "\E[0;41;36m          OpenSSH User Login       \E[0m"
-echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-echo "ID  |  Username  |  IP Address";
-echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-cat $LOG | grep -i sshd | grep -i "Accepted password for" > /tmp/login-db.txt
-data=( $(ps aux | grep "\[priv\]" | sort -k 72 | awk '{print $2}') );
-
-for PID in "${data[@]}"
-do
-        cat /tmp/login-db.txt | grep "sshd\[$PID\]" > /tmp/login-db-pid.txt;
-        NUM=$(cat /tmp/login-db-pid.txt | wc -l);
-        USER=$(cat /tmp/login-db-pid.txt | awk '{print $9}');
-        IP=$(cat /tmp/login-db-pid.txt | awk '{print $11}');
-        if [ $NUM -eq 1 ]; then
-                echo "$PID - $USER - $IP";
-        fi
-echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-done
-if [ -f "/etc/openvpn/server/openvpn-tcp.log" ]; then
-        echo " "
-        echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-        echo -e "\E[0;41;36m          OpenVPN TCP User Login         \E[0m"
-        echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-        echo "Username  |  IP Address  |  Connected Since";
-        echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-        cat /etc/openvpn/server/openvpn-tcp.log | grep -w "^CLIENT_LIST" | cut -d ',' -f 2,3,8 | sed -e 's/,/      /g' > /tmp/vpn-login-tcp.txt
-        cat /tmp/vpn-login-tcp.txt
+# ----------- OpenVPN UDP -----------
+if [ -f /etc/openvpn/server/openvpn-udp.log ]; then
+    echo
+    echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+    echo -e "\E[0;41;36m          OpenVPN UDP User Login         \E[0m"
+    echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+    echo "Username  |  IP Address  |  Connected Since"
+    echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+    grep -w "^CLIENT_LIST" /etc/openvpn/server/openvpn-udp.log \
+        | cut -d',' -f2,3,8 | sed -e 's/,/      /g'
+    echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 fi
-echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 
-if [ -f "/etc/openvpn/server/openvpn-udp.log" ]; then
-        echo " "
-        echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-        echo -e "\E[0;41;36m          OpenVPN UDP User Login         \E[0m"
-        echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-        echo "Username  |  IP Address  |  Connected Since";
-        echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-        cat /etc/openvpn/server/openvpn-udp.log | grep -w "^CLIENT_LIST" | cut -d ',' -f 2,3,8 | sed -e 's/,/      /g' > /tmp/vpn-login-udp.txt
-        cat /tmp/vpn-login-udp.txt
-fi
-echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-echo "";
-
-rm -f /tmp/login-db-pid.txt
-rm -f /tmp/login-db.txt
-rm -f /tmp/vpn-login-tcp.txt
-rm -f /tmp/vpn-login-udp.txt
-read -n 1 -s -r -p "PRESS [ ENTER ] KELUAR MENU"
-menu
+echo
+read -n 1 -s -r -p "Tekan tombol apa saja untuk kembali"
+menu-ssh 2>/dev/null || menu

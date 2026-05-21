@@ -1,5 +1,7 @@
 #!/bin/bash
 set -e
+# shellcheck source=/dev/null
+[ -f /etc/v7fix/lib/common.sh ] && source /etc/v7fix/lib/common.sh
 
 clear
 
